@@ -1,7 +1,18 @@
 
 
 
-#todo write this function. Poly 0x31, init 0xff
-def CRC8(data):
-    return (0x77) #constatnt for the PING COMMAND
+def CRC8(data, length):
+    poly = 0x31
+    crc = 0xFF
 
+    for i in range(length):
+        byte = data[i]
+        crc ^= byte
+        for _ in range(8):
+            if crc & 0x80:
+                crc = (crc << 1) ^ poly
+            else:
+                crc <<= 1
+            crc &= 0xFF
+
+    return crc
