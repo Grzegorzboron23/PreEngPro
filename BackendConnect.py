@@ -15,7 +15,7 @@ def SerialAutoConnect():
     ports = SerialFindSerialDevices()
     print("SerialAutoConnect: Ports:", ports)
     if(len(ports) == 1):
-        return Backend.SerialInit(ports[0])
+        return Backend.SerialInit(ports[0],0)
     return False
 
 
