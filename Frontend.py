@@ -155,6 +155,81 @@ def PortWindow(): #button to be set inactive
     #Create a List:
     #Label(new, text="Hey, Howdy?", font=('Helvetica 17 bold')).pack(pady=30)
 
+def ConfigWindow(): #button to be set inactive, at the top
+    global root
+    global ObjConfig1Btn
+    ObjConfig1Btn['state'] = tkinter.DISABLED
+    new = tkinter.Toplevel(root) #tworzenie okna
+    new.geometry("380x280") #tworzenie wymiarów okna
+    new.title("Communication selector") #label
+    notebook = ttk.Notebook(new) #tworzenie notebooka który umożliwi zrobić zakładki
+    notebook.pack(fill='both', expand='yes')
+    # add tabs for I2C, UART, and SPI
+    i2c_frame = ttk.Frame(notebook)
+    notebook.add(i2c_frame, text='I2C')
+    uart_frame = ttk.Frame(notebook)
+    notebook.add(uart_frame, text='UART')
+    spi_frame = ttk.Frame(notebook)
+    notebook.add(spi_frame, text='SPI')
+    # add widgets to each tab
+    tkinter.Label(i2c_frame, text="I2C communication").pack()
+    i2c_apply_btn = tkinter.Button(i2c_frame, text="Apply") #apply button
+    i2c_apply_btn.pack(side='top')
+
+    tkinter.Label(uart_frame, text="UART communication").pack()
+    uart_apply_btn = tkinter.Button(uart_frame, text="Apply") #apply button
+    uart_apply_btn.pack(side='top')
+
+    # dodanie nowych okien do wyboru CPOL vs CPHA, Slave vs Master, Half-duplex vs Full-duplex
+    # add radio buttons to the SPI tab
+    tkinter.Label(spi_frame, text="SPI communication").grid(row=0, column=0, sticky=tkinter.W)
+    cpol_cpha_frame = ttk.Frame(spi_frame)
+    cpol_cpha_frame.grid(row=1, column=0, sticky=tkinter.W)
+    cpol_label = tkinter.Label(cpol_cpha_frame, text="Clock polarity (CPOL):")
+    cpol_label.pack(side='left')
+    cpol_var = tkinter.StringVar()
+    cpol_var.set("0")
+    cpol_r1 = tkinter.Radiobutton(cpol_cpha_frame, text="0", variable=cpol_var, value="0")
+    cpol_r1.pack(side='left')
+    cpol_r2 = tkinter.Radiobutton(cpol_cpha_frame, text="1", variable=cpol_var, value="1")
+    cpol_r2.pack(side='left')
+    cpha_label = tkinter.Label(cpol_cpha_frame, text="Clock phase (CPHA):")
+    cpha_label.pack(side='left')
+    cpha_var = tkinter.StringVar()
+    cpha_var.set("0")
+    cpha_r1 = tkinter.Radiobutton(cpol_cpha_frame, text="0", variable=cpha_var, value="0")
+    cpha_r1.pack(side='left')
+    cpha_r2 = tkinter.Radiobutton(cpol_cpha_frame, text="1", variable=cpha_var, value="1")
+    cpha_r2.pack(side='left')
+
+    slave_master_frame = ttk.Frame(spi_frame)
+    slave_master_frame.grid(row=2, column=0, sticky=tkinter.W)
+    slave_label = tkinter.Label(slave_master_frame, text="Slave or Master:")
+    slave_label.pack(side='left')
+    slave_var = tkinter.StringVar()
+    slave_var.set("slave")
+    slave_r1 = tkinter.Radiobutton(slave_master_frame, text="Slave", variable=slave_var, value="slave")
+    slave_r1.pack(side='left')
+    master_r2 = tkinter.Radiobutton(slave_master_frame, text="Master", variable=slave_var, value="master")
+    master_r2.pack(side='left')
+    # add half-duplex vs full-duplex radiobuttons
+    duplex_frame = ttk.Frame(spi_frame)
+    duplex_frame.grid(row=3, column=0, sticky=tkinter.W)
+    duplex_label = tkinter.Label(duplex_frame, text="Half-duplex or Full-duplex:")
+    duplex_label.pack(side='left')
+    duplex_var = tkinter.StringVar()
+    duplex_var.set("half-duplex")
+    half_duplex_r1 = tkinter.Radiobutton(duplex_frame, text="Half-duplex", variable=duplex_var, value="half-duplex")
+    half_duplex_r1.pack(side='left')
+    full_duplex_r2 = tkinter.Radiobutton(duplex_frame, text="Full-duplex", variable=duplex_var, value="full-duplex")
+    full_duplex_r2.pack(side='left')
+
+
+    # add the apply button
+    spi_apply_btn = tkinter.Button(spi_frame, text="Apply", width=10, padx=10,command= lambda : PortWindowApply(0,ComboBox.get(),new)).grid(row=0, column=1, padx=14)
+    
+    
+    
 def PortWindowApply(SelectedBoudrate,SelectedPort,WindowToKill):
     global ObjConfig2Btn
     try:
