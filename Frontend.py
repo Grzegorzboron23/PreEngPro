@@ -99,7 +99,7 @@ def FrontInit():
     ObjConfigLabel = tkinter.Label(ObjConfigFrame,text= "Połączono z ...ect")
     ObjConfigLabel.grid(row=0, column=0, columnspan=2)
 
-    ObjConfig1Btn = tkinter.Button(ObjConfigFrame, text="Config", width = 10)
+    ObjConfig1Btn = tkinter.Button(ObjConfigFrame, text="Config", width = 10, command=ConfigWindow)
     ObjConfig1Btn.grid(column=0, row=1, padx=2, pady=2)
 
     ObjConfig2Btn = tkinter.Button(ObjConfigFrame, text="Port", width = 10, command=PortWindow)
@@ -131,13 +131,13 @@ def PortWindow(): #button to be set inactive
     global ObjConfig2Btn
     ObjConfig2Btn['state'] = tkinter.DISABLED
     #todo: Preserve against running more than one config at a time
-    new = tkinter.Toplevel(root)
-    new.geometry("260x250")
-    new.title("Port selector")
-    tkinter.Label(new, text="Select port:").grid(column=0,row=0,sticky=tkinter.W)
-    tkinter.Label(new, text="Select baudrate:").grid(column=0, row=2, sticky=tkinter.W)
+    new = tkinter.Toplevel(root) #okno
+    new.geometry("260x250") #parametry okna
+    new.title("Port selector") #label
+    tkinter.Label(new, text="Select port:").grid(column=0,row=0,sticky=tkinter.W) #opis
+    tkinter.Label(new, text="Select baudrate:").grid(column=0, row=2, sticky=tkinter.W)#drugi opis
     # Port selector:
-    FramePort = tkinter.Frame(new)
+    FramePort = tkinter.Frame(new) #dwa przyciski w jednym poziomie
     FramePort.grid(column=0,row=1,sticky=tkinter.E)
     ComboBox = ttk.Combobox(FramePort)
     PortWindowRefresh(ComboBox)
@@ -149,11 +149,9 @@ def PortWindow(): #button to be set inactive
     FrameBtns.grid(column=0,row=4)
     tkinter.Button(FrameBtns,text="Scan ports",width=10,padx=10,command= lambda : PortWindowRefresh(ComboBox)).grid(row=0,column=0, padx=14)
     tkinter.Button(FrameBtns, text="Apply",width=10,padx=10, command= lambda : PortWindowApply(0,ComboBox.get(),new)).grid(row=0, column=1, padx=14)
-
-
-
     #Create a List:
     #Label(new, text="Hey, Howdy?", font=('Helvetica 17 bold')).pack(pady=30)
+
 
 def ConfigWindow(): #button to be set inactive, at the top
     global root
@@ -227,9 +225,12 @@ def ConfigWindow(): #button to be set inactive, at the top
 
     # add the apply button
     spi_apply_btn = tkinter.Button(spi_frame, text="Apply", width=10, padx=10,command= lambda : PortWindowApply(0,ComboBox.get(),new)).grid(row=0, column=1, padx=14)
-    
-    
-    
+
+
+
+
+
+
 def PortWindowApply(SelectedBoudrate,SelectedPort,WindowToKill):
     global ObjConfig2Btn
     try:
