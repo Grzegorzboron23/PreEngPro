@@ -1,3 +1,5 @@
+import tkinter
+
 import serial
 import serial.tools.list_ports
 import Definitions
@@ -11,12 +13,18 @@ def SerialFindSerialDevices():
             ports.append(port.name)
     return ports
 
+
 def SerialAutoConnect():
     ports = SerialFindSerialDevices()
     print("SerialAutoConnect: Ports:", ports)
     if(len(ports) == 1):
         return Backend.SerialInit(ports[0],0)
     return False
+
+def handle_button_click():
+    print("1")
+
+
 
 
 

@@ -1,4 +1,5 @@
 import tkinter
+from msilib.schema import ComboBox
 from tkinter import ttk
 import BackendConnect
 
@@ -171,12 +172,14 @@ def ConfigWindow(): #button to be set inactive, at the top
     notebook.add(spi_frame, text='SPI')
     # add widgets to each tab
     tkinter.Label(i2c_frame, text="I2C communication").pack()
-    i2c_apply_btn = tkinter.Button(i2c_frame, text="Apply") #apply button
+    i2c_apply_btn = tkinter.Button(i2c_frame, text="Apply" , command=lambda: handle_buttons("i2c")) #apply button
     i2c_apply_btn.pack(side='top')
 
+
     tkinter.Label(uart_frame, text="UART communication").pack()
-    uart_apply_btn = tkinter.Button(uart_frame, text="Apply") #apply button
+    uart_apply_btn = tkinter.Button(uart_frame, text="Apply", command=lambda: handle_buttons("uart_apply_btn")) #apply button
     uart_apply_btn.pack(side='top')
+
 
     # dodanie nowych okien do wyboru CPOL vs CPHA, Slave vs Master, Half-duplex vs Full-duplex
     # add radio buttons to the SPI tab
@@ -250,6 +253,16 @@ def PortWindowRefresh(ComboBox):
         ComboBox.config(values=["Device not found"])
     ComboBox.current(0)
     return
+
+def handle_buttons(btn):
+    # Wykonaj działanie po kliknięciu przycisku konkretnego
+    if btn == "uart_apply_btn":
+        print("Przycisk uart_apply_btn został kliknięty!")
+    elif  btn =="i2c":
+        print("Przycisk i2c_btn został kliknięty!")
+
+
+
 
 
 
