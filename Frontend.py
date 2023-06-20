@@ -227,7 +227,7 @@ def ConfigWindow(): #button to be set inactive, at the top
 
 
     # add the apply button
-    spi_apply_btn = tkinter.Button(spi_frame, text="Apply", width=10, padx=10,command= lambda : PortWindowApply(0,ComboBox.get(),new)).grid(row=0, column=1, padx=14)
+    spi_apply_btn = tkinter.Button(spi_frame, text="Apply", width=10, padx=10,command= lambda : PortWindowApply(0,ComboBox.get(),new)).grid(row=4, column=0, padx=14)
 
 
 
