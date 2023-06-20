@@ -172,6 +172,18 @@ def ConfigWindow(): #button to be set inactive, at the top
     notebook.add(spi_frame, text='SPI')
     # add widgets to each tab
     tkinter.Label(i2c_frame, text="I2C communication").pack()
+    
+    speed_frame = ttk.Frame(i2c_frame)
+    speed_frame.pack()
+    speed_label = tkinter.Label(speed_frame, text="Speed:")
+    speed_label.pack(side='left')
+    speed_var = tkinter.StringVar()
+    speed_var.set("standard")
+    speed_r1 = tkinter.Radiobutton(speed_frame, text="Standard", variable=speed_var, value="standard")
+    speed_r1.pack(side='left')
+    speed_r2 = tkinter.Radiobutton(speed_frame, text="Fast", variable=speed_var, value="fast")
+    speed_r2.pack(side='left')
+        
     i2c_apply_btn = tkinter.Button(i2c_frame, text="Apply" , command=lambda: handle_buttons("i2c")) #apply button
     i2c_apply_btn.pack(side='top')
 
